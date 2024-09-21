@@ -16,9 +16,6 @@ pipeline {
         }
 
         stage('Build') {
-            agent {
-                docker { image 'maven' }
-            }
             steps {
                 // Clean and build the application
                 sh "${MAVEN_HOME}/bin/mvn clean install"
