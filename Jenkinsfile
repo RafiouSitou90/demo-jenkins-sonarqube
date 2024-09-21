@@ -1,11 +1,12 @@
 pipeline {
     agent any
 
-//     environment {
-//         // Define environment variables
-//         MAVEN_HOME = tool 'Maven' // Assuming you've set up Maven tool in Jenkins
-//         JAVA_HOME = tool 'JDK17'  // JDK version as required by your project
-//     }
+    environment {
+        // Define environment variables
+        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
+        MAVEN_HOME = "/usr/share/maven"
+        PATH = "${JAVA_HOME}/bin:${MAVEN_HOME}/bin:${env.PATH}"
+    }
 
     stages {
         stage('Checkout Code') {
