@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    environment {
-        // Define environment variables
-        MAVEN_HOME = tool 'Maven' // Assuming you've set up Maven tool in Jenkins
-        JAVA_HOME = tool 'JDK17'  // JDK version as required by your project
-    }
+//     environment {
+//         // Define environment variables
+//         MAVEN_HOME = tool 'Maven' // Assuming you've set up Maven tool in Jenkins
+//         JAVA_HOME = tool 'JDK17'  // JDK version as required by your project
+//     }
 
     stages {
         stage('Checkout Code') {
@@ -16,6 +16,9 @@ pipeline {
         }
 
         stage('Build') {
+            agent {
+                docker { image 'maven' }
+            }
             steps {
                 // Clean and build the application
                 sh "${MAVEN_HOME}/bin/mvn clean install"
@@ -23,6 +26,9 @@ pipeline {
         }
 
         stage('Test') {
+            agent {
+                docker { image 'maven' }
+            }
             steps {
                 // Run unit tests
                 sh "${MAVEN_HOME}/bin/mvn test"
@@ -30,6 +36,9 @@ pipeline {
         }
 
         stage('Package') {
+            agent {
+                docker { image 'maven' }
+            }
             steps {
                 // Package the application as a JAR or WAR
                 sh "${MAVEN_HOME}/bin/mvn package -Dmaven.test.skip=true"
