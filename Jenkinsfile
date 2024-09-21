@@ -26,9 +26,6 @@ pipeline {
         }
 
         stage('Test') {
-            agent {
-                docker { image 'maven' }
-            }
             steps {
                 // Run unit tests
                 sh "${MAVEN_HOME}/bin/mvn test"
@@ -36,9 +33,6 @@ pipeline {
         }
 
         stage('Package') {
-            agent {
-                docker { image 'maven' }
-            }
             steps {
                 // Package the application as a JAR or WAR
                 sh "${MAVEN_HOME}/bin/mvn package -Dmaven.test.skip=true"
